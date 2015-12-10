@@ -1,0 +1,41 @@
+apply plugin:"eclipse"
+apply plugin:"idea"
+apply plugin:"groovy"
+apply plugin:"application"
+
+mainClassName = "adamatti.WikiMain"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.4.5'
+    compile 'com.sparkjava:spark-core:2.3'
+    compile 'ch.qos.logback:logback-classic:1.1.3'
+
+    def springVersion = '4.2.3.RELEASE'
+    compile "org.springframework:spring-context:${springVersion}"
+	compile "org.springframework:spring-tx:${springVersion}"
+	compile "org.springframework:spring-expression:${springVersion}"
+    testCompile "org.springframework:spring-test:${springVersion}"
+	
+	compile "org.springframework.data:spring-data-mongodb:1.8.0.RELEASE"
+	
+	testCompile 'junit:junit:4.12'	
+}
+
+idea {
+    module {
+        downloadJavadoc = false
+        downloadSources = false
+    }
+}
+
+eclipse {
+    classpath {
+        downloadSources=false
+    }
+}
+
+task stage (dependsOn: "installDist")
