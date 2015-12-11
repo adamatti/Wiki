@@ -6,14 +6,19 @@
 		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
 >
-	<mongo:jmx/>
-	<mongo:mongo id="mongo" host="${mongo.host}" port="${mongo.port}"/>
-	<mongo:repositories base-package="adamatti.model.dao" mongo-template-ref="mongoTemplate"/>
-	<mongo:db-factory id="mongoDbFactory" dbname="${mongo.dbname}" mongo-ref="mongo" />
-	
+    <bean id="mongoUri" class="com.mongodb.MongoURI">
+        <constructor-arg value="${mongo.url}"/>
+    </bean>
+
+    <bean id="mongoDbFactory" class=" org.springframework.data.mongodb.core.SimpleMongoDbFactory">
+        <constructor-arg ref="mongoUri"/>
+    </bean>
+
+    <mongo:repositories base-package="adamatti.model.dao" mongo-template-ref="mongoTemplate"/>
+
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
         <constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
     </bean>
-    
+
     <bean class="org.springframework.data.mongodb.core.MongoExceptionTranslator"/>
 </beans>
