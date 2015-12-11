@@ -3,17 +3,12 @@ package adamatti.model.entity
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 
-
-@Document(collection="tiddlers")
-class Tiddler {
-	Date created
-	Date modified
-	
+@Document(collection="users")
+class User {
 	@Id
-	String name
-	String type
-	String body
+	String id
 	
-	Map meta
-	Map tags
+	String firstName
+	String lastName
+	String email
 }

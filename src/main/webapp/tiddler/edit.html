@@ -1,0 +1,33 @@
+<%=include.call(this,"tiddler/_header.html")%>
+<form action="/wiki/${tiddlerName}" method="POST">
+<div class="panel panel-default">
+	<div class="panel-body">
+	    <input type="text" class="form-control" name="name" placeholder="Tiddler name" value="${tiddlerName}">
+	    <textarea class="form-control" name="body" ng-model="body">${tiddler?.body?: ''}</textarea>
+	</div>
+	<div class="panel-footer">
+	    <a class="btn btn-danger" href="/wiki/${tiddlerName}/delete">Delete</a>
+	    <button type="submit" class="btn btn-success pull-right">Save</button>
+	    <a class="btn btn-default pull-right" href="/wiki/${tiddlerName}">Cancel</a>	    
+	</div>
+</div>
+</form>
+<div markdown="body"></div>
+<%=include.call(this,"tiddler/_footer.html")%>
+<script>
+angular.module('app', [])
+.directive('markdown', function () {
+	var converter = new Showdown.converter();
+	return {
+	    restrict: 'A',
+	    link: function (scope, element, attrs) {
+	        function renderMarkdown() {
+	            var htmlText = converter.makeHtml(scope.${'$'}eval(attrs.markdown)  || '');
+	            element.html(htmlText);
+	        }
+	        scope.${'$'}watch(attrs.markdown, renderMarkdown);
+	        renderMarkdown();
+	    }
+	};
+});
+</script>

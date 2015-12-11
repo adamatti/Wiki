@@ -7,9 +7,9 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
 >
 	<mongo:jmx/>
-	<mongo:mongo id="mongo" host="docker.me" port="27017"/>
+	<mongo:mongo id="mongo" host="${mongo.host}" port="${mongo.port}"/>
 	<mongo:repositories base-package="adamatti.model.dao" mongo-template-ref="mongoTemplate"/>
-	<mongo:db-factory id="mongoDbFactory" dbname="adamatti-wiki" mongo-ref="mongo" />
+	<mongo:db-factory id="mongoDbFactory" dbname="${mongo.dbname}" mongo-ref="mongo" />
 	
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
         <constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />

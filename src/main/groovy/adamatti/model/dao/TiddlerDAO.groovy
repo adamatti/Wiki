@@ -6,5 +6,5 @@ import adamatti.model.entity.Tiddler
 
 
 interface TiddlerDAO extends MongoRepository<Tiddler, String> {
-
+	public Tiddler findByName(String name)	
 }

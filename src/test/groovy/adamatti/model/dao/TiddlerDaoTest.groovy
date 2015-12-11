@@ -11,30 +11,16 @@ public class TiddlerDaoTest extends BaseTest {
 	private TiddlerDAO tiddlerDao
 	
 	@Test
-	public void test(){
-		log.debug("Test started")
-		
-		assert tiddlerDao
+	public void testCrud(){
+		Tiddler record = new Tiddler(name: "sample ${System.nanoTime()}", meta: [a:"b"])
 		
 		//Insert
-		log.debug("Insert")
-		Tiddler record = [name:"Adamatti ${System.nanoTime()}"]
 		record = tiddlerDao.save(record)
 		
 		//Update
-		log.debug("Update")
-		record.lastName = "Marcelo"
 		record = tiddlerDao.save(record)
 		
-		//Search
-		log.debug("Search")
-		record = tiddlerDao.find{it.lastName == "Marcelo"}
-		assert record
-		
 		//Delete
-		log.debug("Delete")
 		tiddlerDao.delete(record)
-		
-		log.debug("Test ended")
 	}
 }
