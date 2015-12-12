@@ -9,7 +9,7 @@ import groovy.util.logging.Slf4j;
 @Slf4j
 class WikiMain {
 	public static void main(String [] args){
-		Spark.port(Resources.cfg.spark.port)
+		Spark.port("${Resources.cfg.spark.port}".toInteger())
 		
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring-app.xml")
 		context.registerShutdownHook()
