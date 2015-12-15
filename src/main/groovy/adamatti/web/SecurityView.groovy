@@ -25,12 +25,12 @@ class SecurityView {
 			String user = "${cfg.user}:${cfg.pass}".bytes.encodeBase64().toString()
 			
 			if (header != "Basic ${user}"){
-				println header
-				println user
+				//println header
+				//println user
 				
 				res.header("WWW-Authenticate", "Basic")
 				Spark.halt(401)
-			}			
+			}
 		}
 	}	
 }

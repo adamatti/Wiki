@@ -151,3 +151,7 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Added
+.env
+Makefile

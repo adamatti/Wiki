@@ -2,8 +2,18 @@
 <form action="/wiki/${tiddlerName}" method="POST">
 <div class="panel panel-default">
 	<div class="panel-body">
-	    <input type="text" class="form-control" name="name" placeholder="Tiddler name" value="${tiddlerName}">
-	    <textarea class="form-control" name="body" ng-model="body">${tiddler?.body?: ''}</textarea>
+	    <div class="row">
+	       <div class="col-lg-10">
+	           <input type="text" class="form-control" name="name" placeholder="Tiddler name" value="${tiddlerName}">	           
+	       </div>
+	       <div class="col-lg-2">	           
+	           <select class="form-control" name="type">	           
+	               <option value="markdown">markdown
+	               <option value="groovy" ${tiddler?.type == "groovy" ? "selected" : ""}>groovy
+	           </select>
+	       </div>
+	    </div>
+	    <textarea class="form-control" name="body" rows="20">${tiddler?.body?: ''}</textarea>
 	</div>
 	<div class="panel-footer">
 	    <a class="btn btn-danger" href="/wiki/${tiddlerName}/delete">Delete</a>
@@ -12,25 +22,4 @@
 	</div>
 </div>
 </form>
-
-<!-- 
-<div markdown="body"></div>
-<script>
-angular.module('app', [])
-.directive('markdown', function () {
-	var converter = new Showdown.converter();
-	return {
-	    restrict: 'A',
-	    link: function (scope, element, attrs) {
-	        function renderMarkdown() {
-	            var htmlText = converter.makeHtml(scope.${'$'}eval(attrs.markdown)  || '');
-	            element.html(htmlText);
-	        }
-	        scope.${'$'}watch(attrs.markdown, renderMarkdown);
-	        renderMarkdown();
-	    }
-	};
-});
-</script>
- -->
 <%=include.call(this,"tiddler/_footer.html")%>
