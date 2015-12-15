@@ -1,0 +1,6 @@
+<%=include.call(this,"tiddler/_header.html")%>
+<base href="/wiki/">
+<%=tiddlers.collect{"<hr><h3>${it.name}</h3><br/>${it.html}<br/>"}.join("")%>
+</base>
+<%=include.call(this,"tiddler/_footer.html")%>
+

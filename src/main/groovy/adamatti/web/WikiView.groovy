@@ -1,5 +1,7 @@
 package adamatti.web
 
+import adamatti.model.dao.TiddlerDAO
+
 import javax.annotation.PostConstruct
 
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,63 +16,82 @@ import adamatti.model.entity.Tiddler
 
 @Component
 class WikiView extends BaseView {
-	
+	@Autowired
+	private TiddlerDAO tiddlerDao
+
 	@Autowired
 	private TiddlerBO tiddlerBo
-	
+
 	@Autowired
 	private TiddlerRenderBO tiddlerRenderBo
-	
+
 	@PostConstruct
 	public void init(){
 		Closure home = {Request req,Response res ->
 			log.trace ("Redirect to home")
 			res.redirect "/wiki/home"
 		}
-		
+
 		Spark.get("/",home)
 		Spark.get("/wiki",home)
-		
-		Spark.get("/wiki/:name"){Request req,Response res ->			
+
+		Spark.get("/wiki/:name"){Request req,Response res ->
 			String tiddlerName = req.params("name")
 			log.trace("Show ${tiddlerName}")
-			
-			Tiddler tiddler = tiddlerBo.findByName(tiddlerName)
+
+			Tiddler tiddler = tiddlerDao.findByName(tiddlerName)
 			String page = tiddler ? "view" : "not_found"
-			
+
 			return this.processTemplatePath("tiddler/${page}.html",[
 				tiddlerName : tiddlerName,
 				tiddler : tiddler,
 				html    : tiddler ? tiddlerRenderBo.process(tiddler) : ''
 			])
 		}
-		
+
 		Spark.get("/wiki/:name/edit"){Request req,Response res ->
 			String tiddlerName = req.params("name")
 			log.trace("Edit ${tiddlerName}")
-			
-			Tiddler tiddler = tiddlerBo.findByName(tiddlerName)
+
+			Tiddler tiddler = tiddlerDao.findByName(tiddlerName)
 			return this.processTemplatePath("tiddler/edit.html",[
 				tiddlerName : tiddlerName,
-				tiddler : tiddler				
+				tiddler : tiddler
 			])
 		}
-		
+
 		Spark.post("/wiki/:name"){Request req,Response res ->
 			String tiddlerName = req.params("name")
 			Tiddler tiddler = this.convert(req)
 			tiddlerBo.save(tiddlerName, tiddler)
 			res.redirect("/wiki/${tiddler.name}")
 		}
+
+		Spark.get("/search"){Request req,Response res ->
+			def list = tiddlerDao.findAll().sort{it.name}
+
+			def queryString = req.queryParams("q")
+			if (queryString){
+				queryString = queryString.toLowerCase()
+				list = list.findAll{ it.name.toLowerCase().contains(queryString) || it.body.toLowerCase().contains(queryString)}
+			}
+
+			list = list.collect {[name:it.name, html: tiddlerRenderBo.process(it)]}
+
+			return this.processTemplatePath("tiddler/search.html",[
+				tiddlerName: "Search by ${queryString}",
+				tiddlers: list
+			])
+		}
 	}
-	
+
 	private Tiddler convert(Request req){
 		Tiddler tiddler = new Tiddler()
 		tiddler.with {
 			name = req.queryParams("name")
 			body = req.queryParams("body")
 			type = req.queryParams("type") ?: "markdown"
-		}		
+		}
 		return tiddler
 	}
 }

@@ -1,14 +1,15 @@
 Roadmap
 ========
 
-* Rest API
+* Rest API (missing post)
 * Security
 * Import / Export data
-* View
+* Single View (Like tiddlywiki)
 * Tags
 * Meta
-* Deploy to heroku
 
 Nice to have
 ------------
 * Improve includes
+* Improve search (auto complete?)
+* Features from Tiddlywiki

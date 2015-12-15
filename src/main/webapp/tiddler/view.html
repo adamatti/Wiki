@@ -1,7 +1,15 @@
 <%=include.call(this,"tiddler/_header.html")%>
-<div align="right">
-    <a href="https://daringfireball.net/projects/markdown/" class="btn btn-primary" target="_blank">Reference</a>
-    <a href="/wiki/${tiddlerName}/edit" class="btn btn-primary">Edit</a>
-</div>
+<div class="row">
+    <div class="col-lg-10">
+        <form action="/search">
+            <input type="text" class="form-control" name="q" placeholder="Seach...">
+        </form>
+    </div>
+    <div class="col-lg-2" align="right">
+        <a href="/" class="btn btn-primary">Home</a>
+        <a href="https://daringfireball.net/projects/markdown/" class="btn btn-primary" target="_blank">Reference</a>
+        <a href="/wiki/${tiddlerName}/edit" class="btn btn-primary">Edit</a>
+    </div>
+</div><br/>
 ${html}
 <%=include.call(this,"tiddler/_footer.html")%>
