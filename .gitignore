@@ -155,3 +155,4 @@ Temporary Items
 # Added
 .env
 Makefile
+node_modules/

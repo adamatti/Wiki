@@ -1,0 +1,25 @@
+task npmCacheConfig(type: NpmTask) {
+    description = "Configure the NPM cache"
+    def npmCacheDir = "${gradle.getGradleUserHomeDir()}/caches/npm"
+    outputs.files file(npmCacheDir)
+    args = [ 'config', 'set', 'cache', npmCacheDir ]
+}
+
+task npmPackages(type: NpmTask, dependsOn: npmCacheConfig) {
+    description = "Install Node.js packages"
+    args = [ 'install' ]
+    inputs.files file('package.json')
+    outputs.files file('node_modules')
+}
+
+task bowerInstall(type: NodeTask, dependsOn: npmPackages) {
+    script = file('node_modules/bower/bin/bower')
+    args = [
+        "--config.storage.cache=${gradle.getGradleUserHomeDir()}/caches/bower/cache",
+        "--config.storage.packages=${gradle.getGradleUserHomeDir()}/caches/bower/packages",
+        "--config.storage.registry=${gradle.getGradleUserHomeDir()}/caches/bower/registry",
+        'install'
+    ]
+    inputs.files file('bower.json')
+    outputs.files file('build/bower')
+}

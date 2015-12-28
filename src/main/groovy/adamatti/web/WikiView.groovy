@@ -91,6 +91,7 @@ class WikiView extends BaseView {
 			name = req.queryParams("name")
 			body = req.queryParams("body")
 			type = req.queryParams("type") ?: "markdown"
+			tags = req.queryParams("tags") ? req.queryParams("tags").split(",") : null
 		}
 		return tiddler
 	}

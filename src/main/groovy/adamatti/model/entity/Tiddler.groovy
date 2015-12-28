@@ -15,5 +15,5 @@ class Tiddler {
 	String body
 	
 	Map meta
-	Map tags
+	List<String> tags
 }

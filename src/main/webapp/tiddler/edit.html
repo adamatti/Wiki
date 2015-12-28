@@ -3,8 +3,11 @@
 <div class="panel panel-default">
 	<div class="panel-body">
 	    <div class="row">
-	       <div class="col-lg-10">
+	       <div class="col-lg-8">
 	           <input type="text" class="form-control" name="name" placeholder="Tiddler name" value="${tiddlerName}">	           
+	       </div>
+	       <div class="col-lg-2">
+	           <input type="text" name="tags" id="tags" value="${tiddler?.tags ? tiddler?.tags.join(',') : ''}"/>
 	       </div>
 	       <div class="col-lg-2">	           
 	           <select class="form-control" name="type">	           
@@ -22,4 +25,9 @@
 	</div>
 </div>
 </form>
+<script>
+\$('#tags').tagsInput({
+	'height':'50px'
+});
+</script>
 <%=include.call(this,"tiddler/_footer.html")%>

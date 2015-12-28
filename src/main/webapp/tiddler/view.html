@@ -12,4 +12,5 @@
     </div>
 </div><br/>
 ${html}
+<center>${tiddler?.tags? 'Tags: ' + tiddler.tags.collect{"<a href=\"" + it + "\">" + it + "</a>"} : ''}</center>
 <%=include.call(this,"tiddler/_footer.html")%>

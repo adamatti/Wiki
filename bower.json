@@ -1,0 +1,27 @@
+{
+  "name": "adamatti-wiki",
+  "authors": [
+    "Marcelo Adamatti <adamatti@gmail.com>"
+  ],
+  "description": "Personal wiki",
+  "moduleType": [],
+  "keywords": [
+    "wiki"
+  ],
+  "license": "MIT",
+  "homepage": "http://about.me/adamatti",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "1.11.3",
+    "angular": "1.3.0",
+    "bootstrap": "~3.3.6",
+    "jquery.tagsinput": "~1.3.6"
+  }
+}

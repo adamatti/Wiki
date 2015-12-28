@@ -1,3 +1,7 @@
+plugins {
+    id "com.moowork.node" version "0.11"
+}
+apply from: "src/scripts/bower.gradle"
 apply plugin:"eclipse"
 apply plugin:"idea"
 apply plugin:"groovy"
@@ -43,7 +47,7 @@ eclipse {
     }
 }
 
-task stage (dependsOn: "installDist")
+task stage (dependsOn: ["installDist","bowerInstall"])
 
 tasks.withType(Test) {
     environment "ENV","test"
