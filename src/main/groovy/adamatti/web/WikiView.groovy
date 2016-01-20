@@ -83,6 +83,13 @@ class WikiView extends BaseView {
 				tiddlers: list
 			])
 		}
+
+		Spark.get("/wiki/:name/delete"){Request req,Response res ->
+			String tiddlerName = req.params("name")
+			log.trace("Delete ${tiddlerName}")
+			tiddlerDao.delete(tiddlerName)
+			res.redirect("/")
+		}
 	}
 
 	private Tiddler convert(Request req){

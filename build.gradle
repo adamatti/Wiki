@@ -22,6 +22,7 @@ dependencies {
     compile 'ch.qos.logback:logback-classic:1.1.3'
 
     compile 'org.commonjava.googlecode.markdown4j:markdown4j:2.2-cj-1.0'
+    compile 'org.asciidoctor:asciidoctorj:1.5.4'
 
     def springVersion = '4.2.3.RELEASE'
     compile "org.springframework:spring-context:${springVersion}"

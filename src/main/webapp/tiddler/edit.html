@@ -4,15 +4,17 @@
 	<div class="panel-body">
 	    <div class="row">
 	       <div class="col-lg-8">
-	           <input type="text" class="form-control" name="name" placeholder="Tiddler name" value="${tiddlerName}">	           
+	           <input type="text" class="form-control" name="name" placeholder="Tiddler name" value="${tiddlerName}">
 	       </div>
 	       <div class="col-lg-2">
 	           <input type="text" name="tags" id="tags" value="${tiddler?.tags ? tiddler?.tags.join(',') : ''}"/>
 	       </div>
-	       <div class="col-lg-2">	           
-	           <select class="form-control" name="type">	           
+	       <div class="col-lg-2">
+	           <select class="form-control" name="type">
 	               <option value="markdown">markdown
-	               <option value="groovy" ${tiddler?.type == "groovy" ? "selected" : ""}>groovy
+                   <option value="asciidoctor" ${tiddler?.type == "asciidoctor" ? "selected" : ""}>asciidoctor
+	               <option value="groovy+md" ${tiddler?.type == "groovy+md" ? "selected" : ""}>groovy + markdown
+                   <option value="groovy+ad" ${tiddler?.type == "groovy+ad" ? "selected" : ""}>groovy + asciidoctor
 	           </select>
 	       </div>
 	    </div>
@@ -20,8 +22,21 @@
 	</div>
 	<div class="panel-footer">
 	    <a class="btn btn-danger" href="/wiki/${tiddlerName}/delete">Delete</a>
+
 	    <button type="submit" class="btn btn-success pull-right">Save</button>
-	    <a class="btn btn-default pull-right" href="/wiki/${tiddlerName}">Cancel</a>	    
+	    <a class="btn btn-default pull-right" href="/wiki/${tiddlerName}">Cancel</a>
+
+        <div class="btn-group pull-right">
+            <a class="btn btn-default btn-flat" href="https://daringfireball.net/projects/markdown/" target="_blank">Markdown</a>
+            <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="https://daringfireball.net/projects/markdown/" target="_blank">Markdown</a></li>
+                <li><a href="http://asciidoctor.org/docs/asciidoc-syntax-quick-reference" target="_blank">Asciidoctor</a></li>
+            </ul>
+        </div>
 	</div>
 </div>
 </form>

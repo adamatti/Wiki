@@ -8,12 +8,12 @@ import org.springframework.data.mongodb.core.mapping.Document
 class Tiddler {
 	Date created
 	Date modified
-	
+
 	@Id
 	String name
-	String type
+	String type //TODO create an enum
 	String body
-	
+
 	Map meta
 	List<String> tags
 }
