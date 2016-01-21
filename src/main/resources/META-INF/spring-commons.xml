@@ -9,4 +9,7 @@
 ">
 	<context:annotation-config/>
 	<context:component-scan base-package="adamatti"/>
+
+    <bean class="org.markdown4j.Markdown4jProcessor" />
+    <bean class="org.asciidoctor.Asciidoctor.Factory" factory-method="create"/>
 </beans>
