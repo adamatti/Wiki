@@ -13,13 +13,15 @@ class BowerView {
 	@PostConstruct
 	public void init(){
 		Spark.get("bower/*"){Request req, Response res ->
+			this.addCacheHeaders(res)
+
 			String path = req.pathInfo().replaceFirst("/bower/", "build/bower/");
 			//InputStream inputStream = getClass().getResourceAsStream(path)
 			InputStream inputStream = new FileInputStream(new File(path))
-			
-			if (inputStream != null) {				
+
+			if (inputStream != null) {
 				res.status(200)
-				
+
 				byte[] buf = new byte[1024]
                 OutputStream os = res.raw().getOutputStream()
                 OutputStreamWriter outWriter = new OutputStreamWriter(os)
@@ -34,5 +36,13 @@ class BowerView {
 			}
 			return null
 		}
+	}
+
+	private void addCacheHeaders(Response res){
+		res.header("Cache-Control","public, max-age=14400")
+		//res.header("Content-Encoding","gzip")
+		def dtFormat = "EEE, dd MMM yyyy HH:mm:ss zzz"
+		res.header("Expires", (new Date()+1).format(dtFormat))
+		res.header("Last-Modified",(new Date()-1).format(dtFormat))
 	}
 }
