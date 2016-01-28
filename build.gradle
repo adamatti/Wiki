@@ -10,6 +10,10 @@ apply plugin:"application"
 applicationName = "wiki"
 mainClassName = "adamatti.WikiMain"
 
+configurations {
+    all*.exclude group:"org.slf4j", module: "slf4j-simple"
+}
+
 repositories {
     mavenCentral()
 }

@@ -6,7 +6,7 @@ pass = System.env.PASS ?: "admin"
 
 mongo {
 	user   = ""
-	passs  = ""
+	pass   = ""
 	host   = "docker.me"
 	port   = 27017
 	dbname = System.env.MONGO_DBNAME ?: "adamatti-wiki-${env}"

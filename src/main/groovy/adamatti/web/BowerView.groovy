@@ -1,5 +1,7 @@
 package adamatti.web
 
+import groovy.util.logging.Slf4j
+
 import javax.annotation.PostConstruct
 
 import org.springframework.stereotype.Component
@@ -8,6 +10,7 @@ import spark.Request
 import spark.Response
 import spark.Spark
 
+@Slf4j
 @Component
 class BowerView {
 	@PostConstruct
@@ -17,7 +20,12 @@ class BowerView {
 
 			String path = req.pathInfo().replaceFirst("/bower/", "build/bower/");
 			//InputStream inputStream = getClass().getResourceAsStream(path)
-			InputStream inputStream = new FileInputStream(new File(path))
+			def file = new File(path)
+			if (!file.exists()){
+				log.warn("File not found: " + path)
+				return null
+			}
+			InputStream inputStream = new FileInputStream(file)
 
 			if (inputStream != null) {
 				res.status(200)
