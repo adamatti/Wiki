@@ -41,6 +41,8 @@ dependencies {
     compile "org.aspectj:aspectjrt:${aspectjVersion}"
     compile "org.aspectj:aspectjweaver:${aspectjVersion}"
 
+    compile 'com.newrelic.agent.java:newrelic-agent:3.24.1'
+
     testCompile 'junit:junit:4.12'
 }
 
