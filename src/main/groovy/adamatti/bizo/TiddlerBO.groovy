@@ -1,15 +1,21 @@
 package adamatti.bizo
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.redis.core.ValueOperations
 import org.springframework.stereotype.Service
 
 import adamatti.model.dao.TiddlerDAO
 import adamatti.model.entity.Tiddler
 
+import javax.annotation.Resource
+
 @Service
 class TiddlerBO {
 	@Autowired
 	private TiddlerDAO tiddlerDao
+
+	@Resource(name="redisTemplate")
+	private ValueOperations valueOps
 
 	public Tiddler save(String oldName, Tiddler tiddler){
 		Tiddler entity = tiddlerDao.findByName(oldName)
@@ -24,6 +30,8 @@ class TiddlerBO {
 			tiddlerDao.delete(entity)
 		}
 
-		return tiddler
+		valueOps.set(tiddler.name,null)
+
+		tiddler
 	}
 }
