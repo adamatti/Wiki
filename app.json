@@ -1,0 +1,19 @@
+{
+  "name": "Adamatti Wiki",
+  "description": "A wiki that supports asciidoc / markdown / groovy templates",
+  "repository": "https://github.com/adamatti/wiki",
+  "keywords": ["wiki","markdown","asciidoc","groovy"],
+  "addons":[
+      "logentries:le_tryit",
+      "mongolab:sandbox",
+      "newrelic:wayne",
+      "rediscloud",
+      "redismonitor:free"
+  ],
+  "env" : {
+      "APP_PASS" : "admin",
+      "APP_USER" : "admin",
+      "NEW_RELIC_LOG" : "stdout",
+      "WIKI_OPTS" : "-javaagent:build/install/wiki/lib/newrelic-agent-3.24.1.jar"
+  }
+}
