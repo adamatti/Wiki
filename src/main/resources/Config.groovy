@@ -10,7 +10,7 @@ mongo {
 	host   = "docker.me"
 	port   = 27017
 	dbname = System.env.MONGO_DBNAME ?: "adamatti-wiki-${env}"
-	url    = System.env.MONGOLAB_URI ?: "mongodb://${user ? (user + ':' + pass + '@') : ''}${host}:${port}/${dbname}"
+	url    = System.env.MONGODB_URI ?: System.env.MONGOLAB_URI ?: "mongodb://${user ? (user + ':' + pass + '@') : ''}${host}:${port}/${dbname}"
 }
 
 redis {
