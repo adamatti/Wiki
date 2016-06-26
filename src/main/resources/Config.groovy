@@ -1,8 +1,8 @@
 env = System.env.ENV ?: "dev"
 
 //Security (basic, TODO need to improve)
-user = System.env.USER ?: "admin"
-pass = System.env.PASS ?: "admin"
+user = System.env.APP_USER ?: "admin"
+pass = System.env.APP_PASS ?: "admin"
 
 mongo {
 	user   = ""
