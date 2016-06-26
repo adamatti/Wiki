@@ -1,15 +1,12 @@
-Roadmap
-========
+Wiki that supports Asciidoc / Markdown / Groovy templates
 
+#### Todo List
 * Rest API (missing post)
-* Security
+* Improve Security
 * Import / Export data
 * Single View (Like tiddlywiki)
-* Tags
-* Meta
-
-Nice to have
-------------
+* Enhance Tags
+* Show Meta Data (create/update date)
 * Improve includes
 * Improve search (auto complete?)
 * Features from Tiddlywiki
