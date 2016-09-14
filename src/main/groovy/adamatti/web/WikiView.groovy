@@ -1,5 +1,6 @@
 package adamatti.web
 
+import adamatti.commons.Resources
 import adamatti.model.dao.TiddlerDAO
 
 import javax.annotation.PostConstruct
@@ -16,6 +17,8 @@ import adamatti.model.entity.Tiddler
 
 @Component
 class WikiView extends BaseView {
+	private ConfigObject cfg = Resources.cfg
+
 	@Autowired
 	private TiddlerDAO tiddlerDao
 
@@ -29,7 +32,7 @@ class WikiView extends BaseView {
 	public void init(){
 		Closure home = {Request req,Response res ->
 			log.trace ("Redirect to home")
-			res.redirect "/wiki/home"
+			res.redirect "${this.getBaseUrl(req)}/wiki/home"
 		}
 
 		Spark.get("/",home)
@@ -64,7 +67,7 @@ class WikiView extends BaseView {
 			String tiddlerName = req.params("name")
 			Tiddler tiddler = this.convert(req)
 			tiddlerBo.save(tiddlerName, tiddler)
-			res.redirect("/wiki/${tiddler.name}")
+			res.redirect("${this.getBaseUrl(req)}/wiki/${tiddler.name}")
 		}
 
 		Spark.get("/search"){Request req,Response res ->
@@ -88,7 +91,7 @@ class WikiView extends BaseView {
 			String tiddlerName = req.params("name")
 			log.trace("Delete ${tiddlerName}")
 			tiddlerDao.delete(tiddlerName)
-			res.redirect("/")
+			res.redirect("${this.getBaseUrl(req)}/")
 		}
 	}
 
@@ -101,5 +104,9 @@ class WikiView extends BaseView {
 			tags = req.queryParams("tags") ? req.queryParams("tags").split(",") : null
 		}
 		return tiddler
+	}
+
+	private String getBaseUrl(Request req){
+		cfg.requireHTTPS ? "https://${req.host()}" : ""
 	}
 }
