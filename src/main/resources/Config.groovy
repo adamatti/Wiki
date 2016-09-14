@@ -23,3 +23,5 @@ redis {
 spark {
 	port = System.env.PORT ?: 8079
 }
+
+requireHTTPS = (System.env.REQUIRE_HTTPS ?: "false").equalsIgnoreCase("true")

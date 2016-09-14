@@ -16,21 +16,25 @@ import spark.Spark
 @Component
 class SecurityView {
 	private ConfigObject cfg = Resources.cfg
-	
-	@PostConstruct	
+
+	@PostConstruct
 	public void init(){
 		log.trace("SecurityView: started")
 		Spark.before("*"){Request req, Response res ->
 			String header = req.headers("Authorization")
 			String user = "${cfg.user}:${cfg.pass}".bytes.encodeBase64().toString()
-			
+
 			if (header != "Basic ${user}"){
-				//println header
-				//println user
-				
 				res.header("WWW-Authenticate", "Basic")
 				Spark.halt(401)
 			}
 		}
-	}	
+
+		Spark.before("*"){Request req, Response res ->
+			String xfp = req.headers("x-forwarded-proto") ?: "http"
+			if (!xfp.equalsIgnoreCase("https") && cfg.requireHTTPS){
+				Spark.halt(403,"Error: HTTPS required")
+			}
+		}
+	}
 }
