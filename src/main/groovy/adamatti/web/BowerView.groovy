@@ -16,34 +16,45 @@ class BowerView {
 	@PostConstruct
 	public void init(){
 		Spark.get("bower/*"){Request req, Response res ->
-			this.addCacheHeaders(res)
-
 			String path = req.pathInfo().replaceFirst("/bower/", "build/bower/");
-			//InputStream inputStream = getClass().getResourceAsStream(path)
-			def file = new File(path)
-			if (!file.exists()){
-				log.warn("File not found: " + path)
-				return null
-			}
-			InputStream inputStream = new FileInputStream(file)
+			return serveFile(path,req,res)
+		}
 
-			if (inputStream != null) {
-				res.status(200)
+		//TODO find a better place, it shouldn't be here
+		Spark.get("favicon.ico") { Request req, Response res ->
+			String path = "src/main/webapp/favicon.ico"
+			return serveFile(path,req,res)
+		}
+	}
 
-				byte[] buf = new byte[1024]
-                OutputStream os = res.raw().getOutputStream()
-                OutputStreamWriter outWriter = new OutputStreamWriter(os)
-                int count = 0
-                while ((count = inputStream.read(buf)) >= 0) {
-                    os.write(buf, 0, count)
-                }
-                inputStream.close()
-                outWriter.close()
+	private def serveFile(String path, Request req, Response res){
+		this.addCacheHeaders(res)
 
-				return ""
-			}
+		//InputStream inputStream = getClass().getResourceAsStream(path)
+		def file = new File(path)
+		if (!file.exists()){
+			log.warn("File not found: " + path)
 			return null
 		}
+		InputStream inputStream = new FileInputStream(file)
+
+		if (inputStream != null) {
+			res.status(200)
+
+			byte[] buf = new byte[1024]
+			OutputStream os = res.raw().getOutputStream()
+			OutputStreamWriter outWriter = new OutputStreamWriter(os)
+			int count = 0
+			while ((count = inputStream.read(buf)) >= 0) {
+				os.write(buf, 0, count)
+			}
+			inputStream.close()
+			outWriter.close()
+
+			return ""
+		}
+		return null
+
 	}
 
 	private void addCacheHeaders(Response res){
