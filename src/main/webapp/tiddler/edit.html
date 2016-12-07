@@ -18,7 +18,18 @@
 	           </select>
 	       </div>
 	    </div>
-	    <textarea class="form-control" name="body" rows="20">${tiddler?.body?: ''}</textarea>
+        <div id="tabs">
+            <ul>
+                <li><a href="#tabs-1">Edit</a></li>
+                <li><a href="#tabs-2">Preview</a></li>
+            </ul>
+            <div id="tabs-1">
+                <textarea class="form-control" name="body" rows="20">${tiddler?.body?: ''}</textarea>
+            </div>
+            <div id="tabs-2">
+                <textarea class="form-control" id="preview" name="body" rows="20">${tiddler?.body?: ''}</textarea>
+            </div>
+        </div>
 	</div>
 	<div class="panel-footer">
 	    <a class="btn btn-danger" href="/wiki/${tiddlerName}/delete">Delete</a>

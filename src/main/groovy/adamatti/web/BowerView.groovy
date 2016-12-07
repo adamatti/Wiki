@@ -15,6 +15,8 @@ import spark.Spark
 class BowerView {
 	@PostConstruct
 	public void init(){
+		Spark.staticFileLocation("/public")
+
 		Spark.get("bower/*"){Request req, Response res ->
 			String path = req.pathInfo().replaceFirst("/bower/", "build/bower/");
 			return serveFile(path,req,res)
