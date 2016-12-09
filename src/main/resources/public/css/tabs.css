@@ -1,13 +1,1 @@
-#tabs {
-    padding: 0px;
-}
-#tabs .ui-tabs-nav {
-    background: transparent;
-    border-width: 0px 0px 1px 0px;
-    -moz-border-radius: 0px;
-    -webkit-border-radius: 0px;
-    border-radius: 0px;
-}
-#tabs .ui-tabs-panel {
-    margin: 0em 0.2em 0.2em 0.2em;
-}
+

@@ -19,15 +19,15 @@
 	       </div>
 	    </div>
         <div id="tabs">
-            <ul>
-                <li><a href="#tabs-1">Edit</a></li>
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tabs-1" id="editLink">Edit</a></li>
                 <li><a href="#tabs-2" id="previewLink">Preview</a></li>
             </ul>
             <div id="tabs-1">
                 <textarea class="form-control" name="body" rows="20">${tiddler?.body?: ''}</textarea>
             </div>
             <div id="tabs-2">
-                <div id="preview" name="bodyPreview" style="height=''"></div>
+                <div id="preview" name="bodyPreview" class="well" style="height=''"></div>
             </div>
         </div>
 	</div>

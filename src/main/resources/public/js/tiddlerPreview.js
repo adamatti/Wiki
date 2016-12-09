@@ -1,6 +1,11 @@
 $(function() {
   $( "#tabs" ).tabs();
 
+  $("#editLink").on("click", function() {
+    $('#tabs ul li').removeClass('active');
+    $('#editLink').closest("li").addClass('active');
+  });
+
   $("#previewLink").on("click", function() {
     var formData = {
             'name'              : $('input[name=name]').val(),
@@ -17,6 +22,8 @@ $(function() {
         encode          : true,
         success: function(data){
           $('#preview').html(data);
+          $('#tabs ul li').removeClass('active');
+          $('#previewLink').closest("li").addClass('active');
           console.log(data);
         },
         error: function(result) {
