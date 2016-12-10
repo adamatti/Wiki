@@ -3,6 +3,7 @@ import adamatti.bizo.TiddlerRenderBO
 import adamatti.commons.TemplateHelper
 import adamatti.model.dao.TiddlerDAO
 import adamatti.model.entity.Tiddler
+import com.newrelic.agent.deps.com.google.common.collect.ImmutableMap
 import groovy.json.JsonOutput
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -43,7 +44,8 @@ class RestView {
 
 		Spark.post("/api/preview") {Request req, Response res->
 			Tiddler tiddler = convert(req)
-			return tiddlerRenderBo.processWithoutCache(tiddler)
+			String html = tiddlerRenderBo.processWithoutCache(tiddler)
+			return JsonOutput.toJson(ImmutableMap.of("tiddler", tiddler, "html", html))
 		}
 
 		Spark.get("/api/tiddlers/:name"){Request req, Response res->

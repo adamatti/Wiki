@@ -13,15 +13,14 @@ $(function() {
             'type'              : $('select[name=type]').val()
         };
 
-    // process the form
     $.ajax({
         type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
         url         : '/api/preview', // the url where we want to POST
+        dataType    : 'json',
         data        : formData, // our data object
-        //dataType    : 'json', // what type of data do we expect back from the server
         encode          : true,
         success: function(data){
-          $('#preview').html(data);
+          $('#preview').html(data.html);
           $('#tabs ul li').removeClass('active');
           $('#previewLink').closest("li").addClass('active');
           console.log(data);
