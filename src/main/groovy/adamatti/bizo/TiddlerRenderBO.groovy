@@ -40,7 +40,7 @@ class TiddlerRenderBO {
 		valueOps.set(tiddler.name, content)
 		content
 	}
-	private String processWithoutCache(Tiddler tiddler){
+	public String processWithoutCache(Tiddler tiddler){
 		log.trace("processWithoutCache[name: ${tiddler.name}]")
 		if (tiddler.type == "markdown") {
 			return markdown.process(tiddler.body)
