@@ -1,7 +1,8 @@
 package adamatti.web
-
+import adamatti.bizo.TiddlerRenderBO
 import adamatti.commons.TemplateHelper
 import adamatti.model.dao.TiddlerDAO
+import adamatti.model.entity.Tiddler
 import groovy.json.JsonOutput
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -15,6 +16,9 @@ import javax.annotation.PostConstruct
 class RestView {
 	@Autowired
 	private TiddlerDAO tiddlerDao
+
+    @Autowired
+	private TiddlerRenderBO tiddlerRenderBo
 
 	@PostConstruct
 	public void init(){
@@ -37,6 +41,12 @@ class RestView {
 			return JsonOutput.prettyPrint(json)
 		}
 
+		Spark.post("/api/preview") {Request req, Response res->
+			Tiddler tiddler = convert(req)
+			String html = tiddlerRenderBo.processWithoutCache(tiddler)
+			return JsonOutput.toJson(["tiddler": tiddler, "html": html])
+		}
+
 		Spark.get("/api/tiddlers/:name"){Request req, Response res->
 			res.header("Content-Type", "application/json")
 
@@ -55,5 +65,16 @@ class RestView {
 		}
 
 		//TODO implement POST
+	}
+
+	private Tiddler convert(Request req){
+		Tiddler tiddler = new Tiddler()
+		tiddler.with {
+			name = req.queryParams("name")
+			body = req.queryParams("body")
+			type = req.queryParams("type") ?: "markdown"
+			tags = req.queryParams("tags") ? req.queryParams("tags").split(",") : null
+		}
+		return tiddler
 	}
 }

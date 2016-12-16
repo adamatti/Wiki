@@ -1,5 +1,5 @@
 <%=include.call(this,"tiddler/_header.html")%>
-<form action="/wiki/${tiddlerName}" method="POST">
+<form action="/wiki/${tiddlerName}" method="POST" name="edit">
 <div class="panel panel-default">
 	<div class="panel-body">
 	    <div class="row">
@@ -18,7 +18,18 @@
 	           </select>
 	       </div>
 	    </div>
-	    <textarea class="form-control" name="body" rows="20">${tiddler?.body?: ''}</textarea>
+        <div id="tabs">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tabs-1" id="editLink">Edit</a></li>
+                <li><a href="#tabs-2" id="previewLink">Preview</a></li>
+            </ul>
+            <div id="tabs-1">
+                <textarea class="form-control" name="body" rows="20">${tiddler?.body?: ''}</textarea>
+            </div>
+            <div id="tabs-2">
+                <div id="preview" name="bodyPreview" class="well" style="height=''"></div>
+            </div>
+        </div>
 	</div>
 	<div class="panel-footer">
 	    <a class="btn btn-danger" href="/wiki/${tiddlerName}/delete">Delete</a>
