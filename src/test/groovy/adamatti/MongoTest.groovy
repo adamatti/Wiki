@@ -11,7 +11,7 @@ import org.junit.Test
  */
 class MongoTest {
 	@Test
-	public void testConnect(){
+	void testConnect(){
 		String uri = System.env.MONGOLAB_URI
 		MongoClientURI mongoClientURI = new MongoClientURI(uri)
 		MongoClient mongoClient = new MongoClient(mongoClientURI)

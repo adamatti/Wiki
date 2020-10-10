@@ -12,16 +12,9 @@ import spark.Spark
 
 @Slf4j
 @Component
-class BowerView {
+class StaticView {
 	@PostConstruct
-	public void init(){
-		Spark.staticFileLocation("/public")
-
-		Spark.get("bower/*"){Request req, Response res ->
-			String path = req.pathInfo().replaceFirst("/bower/", "build/bower/");
-			return serveFile(path,req,res)
-		}
-
+	void init(){
 		//TODO find a better place, it shouldn't be here
 		Spark.get("favicon.ico") { Request req, Response res ->
 			String path = "src/main/webapp/favicon.ico"

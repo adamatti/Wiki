@@ -12,7 +12,7 @@ import org.springframework.util.StopWatch
 @Component
 class LogAspect {
 	@Around("execution(* *(..))")
-	public Object doBasicProfiling(ProceedingJoinPoint pjp) throws Throwable {
+	Object doBasicProfiling(ProceedingJoinPoint pjp) throws Throwable {
 		StopWatch clock = new StopWatch()
 		clock.start()
 
@@ -26,7 +26,7 @@ class LogAspect {
 			}
 		}
 
-		return retVal;
+		return retVal
 	}
 
 

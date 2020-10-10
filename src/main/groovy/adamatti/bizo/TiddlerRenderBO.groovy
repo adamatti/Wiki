@@ -16,11 +16,8 @@ import javax.annotation.Resource
 @Slf4j
 @Service
 class TiddlerRenderBO {
-	@Autowired
-	private Asciidoctor asciidoctor
-
-	@Autowired
-	private Markdown4jProcessor markdown
+	private Asciidoctor asciidoctor = org.asciidoctor.Asciidoctor.Factory.create()
+	private Markdown4jProcessor markdown = new org.markdown4j.Markdown4jProcessor()
 
 	@Autowired
 	private TiddlerDAO tiddlerDao
@@ -29,7 +26,7 @@ class TiddlerRenderBO {
 	private ValueOperations valueOps
 
 	//TODO refactor this
-	public String process(Tiddler tiddler) {
+	String process(Tiddler tiddler) {
 		if (!tiddler) {
 			return ""
 		} else if (valueOps.get(tiddler.name)) {
@@ -40,7 +37,8 @@ class TiddlerRenderBO {
 		valueOps.set(tiddler.name, content)
 		content
 	}
-	public String processWithoutCache(Tiddler tiddler){
+
+	String processWithoutCache(Tiddler tiddler){
 		log.trace("processWithoutCache[name: ${tiddler.name}]")
 		if (tiddler.type == "markdown") {
 			return markdown.process(tiddler.body)

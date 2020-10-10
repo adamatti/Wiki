@@ -10,7 +10,7 @@ import groovy.util.logging.Slf4j
 class WikiMain {
 	private static int port = "${Resources.cfg.spark.port}".toInteger()
 
-	public static void main(String [] args){
+	static void main(String [] args){
 		log.info("Server starting...")
 
 		StopWatch clock = new StopWatch(); clock.start()
@@ -25,7 +25,6 @@ class WikiMain {
 
 	private static startSpark(){
 		Spark.port(port)
-		//Spark.externalStaticFileLocation(new File("build/bower").path)
 	}
 
 	private static startSpring(){

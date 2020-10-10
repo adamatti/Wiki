@@ -21,7 +21,7 @@ class RestView {
 	private TiddlerRenderBO tiddlerRenderBo
 
 	@PostConstruct
-	public void init(){
+	void init(){
 		Spark.get("/api"){ Request req, Response res->
 			return TemplateHelper.processTemplatePath("src/main/webapp/api/home.html")
 		}

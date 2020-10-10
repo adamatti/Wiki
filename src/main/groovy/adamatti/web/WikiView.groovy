@@ -29,7 +29,7 @@ class WikiView extends BaseView {
 	private TiddlerRenderBO tiddlerRenderBo
 
 	@PostConstruct
-	public void init(){
+	void init(){
 		Closure home = {Request req,Response res ->
 			log.trace ("Redirect to home")
 			res.redirect "${this.getBaseUrl(req)}/wiki/home"

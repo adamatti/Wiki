@@ -17,7 +17,7 @@ class TiddlerBO {
 	@Resource(name="redisTemplate")
 	private ValueOperations valueOps
 
-	public Tiddler save(String oldName, Tiddler tiddler){
+	Tiddler save(String oldName, Tiddler tiddler){
 		Tiddler entity = tiddlerDao.findByName(oldName)
 
 		tiddler.created = entity?.created ?: new Date()

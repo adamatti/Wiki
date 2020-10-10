@@ -18,7 +18,7 @@ class SecurityView {
 	private ConfigObject cfg = Resources.cfg
 
 	@PostConstruct
-	public void init(){
+	void init(){
 		log.trace("SecurityView: started")
 		Spark.before("*"){Request req, Response res ->
 			String header = req.headers("Authorization")
