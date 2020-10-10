@@ -1,12 +1,24 @@
-MongoDB:
-  image: sameersbn/mongodb:latest
-  ports:
-    - "27017:27017"
-  volumes:
-    - /srv/docker/mongodb:/var/lib/mongodb
-  restart: always
+version: "3.3"
+services:
+    db:
+        image: mongo:latest
+        ports:
+            - "27017:27017"
+    redis:
+        image: redis:latest
+        ports:
+            - "6379:6379"
 
-redis:
-    image: redis
-    ports:
-        - "6379"
+    app:
+        build: .
+        environment:
+            PORT: "8079"
+            REDISCLOUD_URL: "redis://redis:6379"
+            MONGO_DBNAME: "adamatti-wiki"
+            MONGODB_URI: "mongodb://db/adamatti-wiki"
+        depends_on:
+            - db
+            - redis
+        ports:
+            - "8079:8079"
+
