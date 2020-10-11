@@ -23,5 +23,9 @@ dc-build: dc-stop ## build docker containers
 dc-up: dc-build ## start docker containers
 	@docker-compose up -d
 
+deps:
+	@docker-compose up -d db
+	@docker-compose up -d redis
+
 classes: ## compile
 	@./gradlew classes

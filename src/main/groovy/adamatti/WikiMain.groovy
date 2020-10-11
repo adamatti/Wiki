@@ -1,12 +1,16 @@
 package adamatti
 
-import org.springframework.context.support.ClassPathXmlApplicationContext
+import org.springframework.context.ApplicationContext
+import org.springframework.context.annotation.AnnotationConfigApplicationContext
+import org.springframework.context.annotation.ComponentScan
+import org.springframework.context.annotation.EnableAspectJAutoProxy
 import org.springframework.util.StopWatch
 import spark.Spark
 import adamatti.commons.Resources
 import groovy.util.logging.Slf4j
 
 @Slf4j
+@ComponentScan(basePackages = ["adamatti"])
 class WikiMain {
 	private static int port = "${Resources.cfg.spark.port}".toInteger()
 
@@ -28,7 +32,7 @@ class WikiMain {
 	}
 
 	private static startSpring(){
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring-app.xml")
+		ApplicationContext context = new AnnotationConfigApplicationContext(WikiMain.class)
 		context.registerShutdownHook()
 	}
 }

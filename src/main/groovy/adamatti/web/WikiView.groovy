@@ -90,7 +90,7 @@ class WikiView extends BaseView {
 		Spark.get("/wiki/:name/delete"){Request req,Response res ->
 			String tiddlerName = req.params("name")
 			log.trace("Delete ${tiddlerName}")
-			tiddlerDao.delete(tiddlerName)
+			tiddlerDao.deleteByName(tiddlerName)
 			res.redirect("${this.getBaseUrl(req)}/")
 		}
 	}

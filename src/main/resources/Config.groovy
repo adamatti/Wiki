@@ -14,8 +14,8 @@ mongo {
 }
 
 redis {
-	URI redisUri = System.env.REDISCLOUD_URL ? new URI(System.env.REDISCLOUD_URL) : new URI("http://localhost:32768")
-	host = redisUri?.host ?: "docker.me"
+	URI redisUri = System.env.REDISCLOUD_URL ? new URI(System.env.REDISCLOUD_URL) : new URI("http://localhost:6379")
+	host = redisUri?.host ?: "localhost"
 	port = redisUri?.port?: 6379
 	pass = redisUri?.userInfo? redisUri.userInfo.split(":", 2)[1] : ''
 }
