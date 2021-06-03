@@ -1,21 +1,20 @@
 package adamatti.bizo
 
+import adamatti.model.RedisCache
+import groovy.transform.CompileStatic
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.redis.core.ValueOperations
 import org.springframework.stereotype.Service
-
 import adamatti.model.dao.TiddlerDAO
 import adamatti.model.entity.Tiddler
 
-import javax.annotation.Resource
-
 @Service
+@CompileStatic
 class TiddlerBO {
 	@Autowired
 	private TiddlerDAO tiddlerDao
 
-	@Resource(name="redisTemplate")
-	private ValueOperations valueOps
+	@Autowired
+	private RedisCache redisCache
 
 	Tiddler save(String oldName, Tiddler tiddler){
 		Tiddler entity = tiddlerDao.findByName(oldName)
@@ -30,7 +29,7 @@ class TiddlerBO {
 			tiddlerDao.delete(entity)
 		}
 
-		valueOps.set(tiddler.name,null)
+		redisCache.delete(tiddler.name)
 
 		tiddler
 	}

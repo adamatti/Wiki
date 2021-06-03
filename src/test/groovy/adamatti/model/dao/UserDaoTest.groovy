@@ -1,5 +1,6 @@
 package adamatti.model.dao
 
+import org.junit.Ignore
 import org.junit.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.mongodb.core.MongoTemplate
@@ -10,6 +11,7 @@ import org.springframework.data.mongodb.core.query.Query
 import adamatti.BaseTest
 import adamatti.model.entity.User
 
+@Ignore
 class UserDaoTest extends BaseTest {
 	@Autowired
 	private UserDAO userDao

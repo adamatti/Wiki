@@ -1,14 +1,14 @@
 package adamatti.web
 
 import groovy.util.logging.Slf4j
-
 import javax.annotation.PostConstruct
-
 import org.springframework.stereotype.Component
-
 import spark.Request
 import spark.Response
 import spark.Spark
+import groovy.time.TimeCategory
+
+import java.text.SimpleDateFormat
 
 @Slf4j
 @Component
@@ -39,7 +39,7 @@ class StaticView {
 			byte[] buf = new byte[1024]
 			OutputStream os = res.raw().getOutputStream()
 			OutputStreamWriter outWriter = new OutputStreamWriter(os)
-			int count = 0
+			int count
 			while ((count = inputStream.read(buf)) >= 0) {
 				os.write(buf, 0, count)
 			}
@@ -54,9 +54,21 @@ class StaticView {
 
 	private void addCacheHeaders(Response res){
 		res.header("Cache-Control","public, max-age=14400")
-		//res.header("Content-Encoding","gzip")
+
+		Date tomorrow = use(TimeCategory){
+			new Date() + 1.days
+		}
+		Date yesterday = use(TimeCategory){
+			new Date() - 1.days
+		}
+
+		res.header("Expires", format(tomorrow))
+		res.header("Last-Modified", format(yesterday))
+	}
+
+	private String format(Date date){
 		def dtFormat = "EEE, dd MMM yyyy HH:mm:ss zzz"
-		res.header("Expires", (new Date()+1).format(dtFormat))
-		res.header("Last-Modified",(new Date()-1).format(dtFormat))
+		def sdf = new SimpleDateFormat(dtFormat)
+		return sdf.format(date)
 	}
 }

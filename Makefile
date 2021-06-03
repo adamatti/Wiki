@@ -5,6 +5,7 @@ help: ## show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 clean: ## remove build folders
+	@./gradlew --stop
 	@rm -rf .gradle
 	@rm -rf build
 	@rm -rf out
@@ -28,4 +29,7 @@ deps:
 	@docker-compose up -d redis
 
 classes: ## compile
-	@./gradlew classes
+	@./gradlew classes testClasses
+
+test:
+	@./gradlew test --warning-mode none

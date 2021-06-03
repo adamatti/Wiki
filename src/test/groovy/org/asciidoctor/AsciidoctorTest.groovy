@@ -1,12 +1,12 @@
 package org.asciidoctor
 
-import org.junit.Test
-import spark.utils.Assert
+import spock.lang.Specification
 
-class AsciidoctorTest {
-	@Test
-	void testCreate(){
-		def asciidoctor = org.asciidoctor.Asciidoctor.Factory.create()
-		Assert.notNull(asciidoctor)
+class AsciidoctorSpec extends Specification {
+	def "test create"(){
+		given:
+			def asciidoctor = org.asciidoctor.Asciidoctor.Factory.create()
+		expect:
+			asciidoctor != null
 	}
 }
