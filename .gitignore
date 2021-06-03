@@ -1,4 +1,5 @@
 .gradle/
 build/
+out/
 node_modules/
 *.bat
