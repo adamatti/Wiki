@@ -39,6 +39,8 @@ dependencies {
     // required for new java versions
     compile 'javax.annotation:javax.annotation-api:1.3.2'
 
+    compile 'com.datadoghq:java-dogstatsd-client:4.0.0'
+
     testCompile 'junit:junit:4.12'
     testCompile group: 'org.spockframework', name: 'spock-spring', version: '2.0-groovy-3.0'
 

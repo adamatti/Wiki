@@ -1,5 +1,7 @@
 package adamatti
 
+import com.timgroup.statsd.NonBlockingStatsDClientBuilder
+import com.timgroup.statsd.StatsDClient
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.ComponentScan
@@ -18,6 +20,7 @@ class WikiMain {
 
 		StopWatch clock = new StopWatch(); clock.start()
 
+		startDataDogClient()
 		startSpark()
 		startSpring()
 
@@ -33,5 +36,13 @@ class WikiMain {
 	private static startSpring(){
 		ApplicationContext context = new AnnotationConfigApplicationContext(WikiMain.class)
 		context.registerShutdownHook()
+	}
+
+	private static startDataDogClient(){
+		StatsDClient client = new NonBlockingStatsDClientBuilder()
+			.prefix("statsd")
+			.hostname("localhost")
+			.port(8125)
+			.build();
 	}
 }
