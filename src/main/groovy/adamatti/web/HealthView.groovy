@@ -1,5 +1,6 @@
 package adamatti.web
 
+import adamatti.DataDog
 import adamatti.model.RedisCache
 import adamatti.model.dao.TiddlerDAO
 import groovy.json.JsonOutput
@@ -22,6 +23,8 @@ class HealthView {
 	private RedisCache redisCache
 
 	protected Closure healthController = { Request req, Response res->
+		DataDog.instance.incrementCounter("health-check-calls", "")
+
 		res.header("Content-Type", "application/json")
 
 		Long mongoCount = countMongo()

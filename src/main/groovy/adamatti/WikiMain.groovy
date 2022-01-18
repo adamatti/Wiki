@@ -20,7 +20,7 @@ class WikiMain {
 
 		StopWatch clock = new StopWatch(); clock.start()
 
-		startDataDogClient()
+		DataDog.instance.incrementCounter("service-started", "")
 		startSpark()
 		startSpring()
 
@@ -36,13 +36,5 @@ class WikiMain {
 	private static startSpring(){
 		ApplicationContext context = new AnnotationConfigApplicationContext(WikiMain.class)
 		context.registerShutdownHook()
-	}
-
-	private static startDataDogClient(){
-		StatsDClient client = new NonBlockingStatsDClientBuilder()
-			.prefix("statsd")
-			.hostname("localhost")
-			.port(8125)
-			.build();
 	}
 }
