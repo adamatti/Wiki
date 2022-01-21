@@ -1,5 +1,9 @@
 .gradle/
+.idea/
+bin/
 build/
 out/
 node_modules/
+
+*.jar
 *.bat
