@@ -38,8 +38,6 @@ dependencies {
     compile "org.aspectj:aspectjrt:${aspectjVersion}"
     compile "org.aspectj:aspectjweaver:${aspectjVersion}"
 
-    compile 'com.newrelic.agent.java:newrelic-agent:3.24.1'
-
     // required for new java versions
     compile 'javax.annotation:javax.annotation-api:1.3.2'
 
@@ -50,12 +48,7 @@ dependencies {
 
 }
 
-task downloadAgent(type: Download) {
-    src "https://dtdg.co/latest-java-tracer"
-    dest file("dd-java-agent.jar")
-}
-
-task stage (dependsOn: ["installDist", "downloadAgent"])
+task stage (dependsOn: ["installDist"])
 
 tasks.withType(Test) {
     environment "ENV","test"

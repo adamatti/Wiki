@@ -20,7 +20,6 @@ class WikiMain {
 
 		StopWatch clock = new StopWatch(); clock.start()
 
-		DataDog.instance.incrementCounter("service-started", "")
 		startSpark()
 		startSpring()
 

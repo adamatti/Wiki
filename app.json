@@ -6,7 +6,6 @@
   "addons":[
       "logentries:le_tryit",
       "mongolab:sandbox",
-      "newrelic:wayne",
       "rediscloud",
       "redismonitor:free"
   ],
