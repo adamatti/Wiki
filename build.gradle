@@ -21,20 +21,20 @@ dependencies {
 
     compile 'com.sparkjava:spark-core:2.9.3'
 
-    compile 'ch.qos.logback:logback-classic:1.2.10'
+    compile 'ch.qos.logback:logback-classic:1.2.3'
 
     compile 'org.commonjava.googlecode.markdown4j:markdown4j:2.2-cj-1.1'
-    compile 'org.asciidoctor:asciidoctorj:2.5.2'
+    compile 'org.asciidoctor:asciidoctorj:2.5.1'
 
-    def springVersion = '5.3.15'
+    def springVersion = '5.2.15.RELEASE'
     testCompile "org.springframework:spring-test:${springVersion}"
 
     compile group: 'org.mongodb', name: 'mongo-java-driver', version: '3.12.8'
     compile group: 'org.springframework.data', name: 'spring-data-mongodb', version: '3.0.9.RELEASE'
-    compile 'org.springframework.data:spring-data-redis:2.6.1'
+    compile 'org.springframework.data:spring-data-redis:2.3.9.RELEASE'
     compile group: 'redis.clients', name: 'jedis', version: '3.6.0'
 
-    def aspectjVersion = '1.9.7'
+    def aspectjVersion = '1.9.6'
     compile "org.aspectj:aspectjrt:${aspectjVersion}"
     compile "org.aspectj:aspectjweaver:${aspectjVersion}"
 
@@ -43,7 +43,7 @@ dependencies {
 
     compile 'com.datadoghq:java-dogstatsd-client:4.0.0'
 
-    testCompile 'junit:junit:4.13.2'
+    testCompile 'junit:junit:4.12'
     testCompile group: 'org.spockframework', name: 'spock-spring', version: '2.0-groovy-3.0'
 
 }
